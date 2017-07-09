@@ -1,0 +1,19 @@
+{
+  "name": "RevStackCore.Extensions.DynamicLinq",
+  "version": "1.0.0",
+  "description": ".net core queryable Rest API using System.Linq.Dynamic",
+	"main": "RevStackCore.Extensions.DynamicLinq.sln",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+		"url": "https://github.com/RevStackCore/Extensions.DynamicLinq.git"
+  },
+  "author": "S. Francis",
+  "license": "MIT",
+  "bugs": {
+		"url": "https://github.com/RevStackCore/Extensions.DynamicLinq/issues"
+  },
+	"homepage": "https://github.com/RevStackCore/Extensions.DynamicLinq"
+}
