@@ -1,5 +1,7 @@
 # RevStackCore.Extensions.DynamicLinq
 
+[![Build status](https://ci.appveyor.com/api/projects/status/o5d37k2mty0as2vf?svg=true)](https://ci.appveyor.com/project/tachyon1337/extensions-dynamiclinq)
+
 An AspNetCore quick and dirty OData replacement for queryable APIs. Works for standard POCO entities. No EDM hassles. No middleware configuration.
 However, this is not an OData parser. Although $top,$skip,$orderBy work just like OData syntax, $filter is not an OData AST parser. Instead it works by a custom string deserialization implementation for parsing by the System.Linq.Dynamic IQueryable extensions.
 
@@ -92,7 +94,7 @@ namespace MyApp.Controllers
         }
 
         [HttpGet("")]
-        public async Task<QueryResult<GeoFenceMarker>> Get()
+        public async Task<QueryResult<MyEntity>> Get()
         {
             var query = await _service.GetAsync();
             query = query.AsQueryable();
