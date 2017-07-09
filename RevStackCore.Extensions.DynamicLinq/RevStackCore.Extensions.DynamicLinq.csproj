@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-    <PackageId>RevStackCore.Extensions.DyamicLinq</PackageId>
+    <PackageId>RevStackCore.Extensions.DynamicLinq</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>.net core queryable Rest API using System.Linq.Dynamic</Description>
