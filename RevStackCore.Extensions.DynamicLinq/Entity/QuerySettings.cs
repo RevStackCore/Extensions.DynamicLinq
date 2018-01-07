@@ -7,6 +7,7 @@ namespace RevStackCore.Extensions.DynamicLinq
         public IEnumerable<QueryFilterOptions> Filter { get; set; }
         public string Where { get; set; }
         public string OrderBy { get; set; }
+        public string[] SqlParams { get; set; }
         public int? Top { get; set; }
         public int? Skip { get; set; }
         public int? Page { get; set; }

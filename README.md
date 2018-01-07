@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/o5d37k2mty0as2vf?svg=true)](https://ci.appveyor.com/project/tachyon1337/extensions-dynamiclinq)
 
-An AspNetCore quick and dirty OData replacement for queryable APIs. Works for standard POCO entities. No EDM hassles. No middleware configuration.
+An AspNetCore quick and dirty OData-like replacement for queryable APIs. Works for standard POCO entities. No EDM hassles. No middleware configuration.
 However, this is not an OData parser. Although $top,$skip,$orderBy work just like OData syntax, $filter is not an OData AST parser. Instead it works by a custom string deserialization implementation for parsing by the System.Linq.Dynamic IQueryable extensions.
 
 # Nuget Installation
@@ -48,13 +48,25 @@ public enum FilterTransform
 }
 ```
 
+# $where
+
+The $where querystring allows you to instead pass a raw sql WHERE clause to be parsed by the System.Linq.Dynamic IQueryable extensions. The syntax must match the System.Linq.Dynamic convention. Hence, @0...@N must parametrize the values in the expression. The Parameter values are then passed through a corresponding  
+$params querystring. 
+
+Ex: $where=Name==@0&$params=Bob 
+
+# $params
+
+the $params querystring is a pipe-delimited("|") string of param values for the matching $where expression. $params is required if $where is set.
+
+$params=value0|value1|...valueN
 
 # Usage
 
 
 ## Controller
 
-Importing the library introduces two extension methods on Http Request object.
+Importing the library introduces two extension methods on the Http Request object.
 
 ### ApplyTo
 
@@ -70,7 +82,7 @@ QueryResult<TEntity> PageResult<TEntity>(this HttpRequest request, IQueryable<TE
 
 ```
 
-QueryResult has the same structure as the OData PageResult
+QueryResult<T> has the same structure as a returned OData PageResult
 
 ```cs
 using System;
@@ -119,7 +131,7 @@ let filterModel=[{
 }];
 let $filter = JSON.stringify(filterModel);
 $filter=encodeURIComponent($filter);
-let query=endpoint + "/?$filter=" + $filter + "&$top=100&$orderby='Name'";
+let query=endpoint + "?$filter=" + $filter + "&$top=100&$orderby='Name'";
 
 fetch(query, {
     method: 'get',
@@ -133,6 +145,13 @@ fetch(query, {
 .catch(function(err){
     //error
 })
+
+
+///using $where with $params
+///E.g, filter on a Customer Orders IEnumerable property
+
+/api/Customer?$where=Orders.Any(ZipCode==@0&&Phone==@1)&$params=10001|5555555555
+
 
 
 ```
