@@ -50,8 +50,7 @@ public enum FilterTransform
 
 # $where
 
-The $where querystring allows you to instead pass a raw sql WHERE clause to be parsed by the System.Linq.Dynamic IQueryable extensions. The syntax must match the System.Linq.Dynamic convention. Hence, @0...@N must parametrize the values in the expression. The Parameter values are then passed through a corresponding  
-$params querystring. 
+The $where querystring allows you to instead pass a raw sql WHERE clause to be parsed by the System.Linq.Dynamic IQueryable extensions. The syntax must match the System.Linq.Dynamic convention. Hence, @0...@N must parametrize the values in the expression. The Parameter values are then passed through a corresponding $params querystring. 
 
 Ex: $where=Name==@0&$params=Bob 
 
