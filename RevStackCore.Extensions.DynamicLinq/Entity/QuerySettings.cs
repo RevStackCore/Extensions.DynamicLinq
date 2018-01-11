@@ -13,7 +13,12 @@ namespace RevStackCore.Extensions.DynamicLinq
         public int? Page { get; set; }
         public int? PageSize { get; set; }
 
+        public QuerySettings()
+        {
+            Filter = new List<QueryFilterOptions>();
+        }
+
     }
 
-   
+
 }

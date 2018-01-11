@@ -34,11 +34,11 @@ namespace RevStackCore.Extensions.DynamicLinq
         /// <typeparam name="TEntity">The 1st type parameter.</typeparam>
         public static IQueryable<TEntity> ApplyTo<TEntity>(this HttpRequest request, IQueryable<TEntity> query, QuerySettings settings)
         {
-            if (settings.Filter != null && settings.Filter.Count() > 0)
+            if (settings.Filter.Count() < 1)
             {
                 settings.Filter = getFilterOptions(request);
             }
-            settings = checkSettings(request, settings);
+            //settings = checkSettings(request, settings);
             var queryCount = getItems(query, settings);
             return queryCount.Items;
         }
@@ -90,8 +90,8 @@ namespace RevStackCore.Extensions.DynamicLinq
         public static QueryResult<TEntity> PageResult<TEntity>(this HttpRequest request, IQueryable<TEntity> query, QuerySettings settings)
         {
             var result = new QueryResult<TEntity>();
-            settings = checkSettings(request, settings);
-            if (settings.Filter != null && settings.Filter.Count() > 0)
+            //settings = checkSettings(request, settings);
+            if (settings.Filter.Count() < 1)
             {
                 settings.Filter = getFilterOptions(request);
             }
@@ -112,8 +112,8 @@ namespace RevStackCore.Extensions.DynamicLinq
         public static QueryResult<TEntity> PageResult<TEntity>(this HttpRequest request, IQueryable<TEntity> query, QuerySettings settings, Uri nextPageLink)
         {
             var result = new QueryResult<TEntity>();
-            settings = checkSettings(request, settings);
-            if (settings.Filter != null && settings.Filter.Count() > 0)
+            //settings = checkSettings(request, settings);
+            if (settings.Filter.Count() < 1)
             {
                 settings.Filter = getFilterOptions(request);
             }
