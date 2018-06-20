@@ -149,7 +149,7 @@ namespace RevStackCore.Extensions.DynamicLinq
 
             if (!string.IsNullOrEmpty(strSkip))
             {
-                ; skip = Convert.ToInt32(strSkip);
+                skip = Convert.ToInt32(strSkip);
             }
             if (!string.IsNullOrEmpty(strTop))
             {
@@ -287,6 +287,12 @@ namespace RevStackCore.Extensions.DynamicLinq
             //////// ASSIGN TOTAL COUNT ///////////////////////////////////////
             queryCount.Count = query.Count();
 
+            ////////////// ORDERING /////////////////////////////////////////
+            if (!string.IsNullOrEmpty(settings.OrderBy))
+            {
+                query = query.OrderBy(settings.OrderBy);
+            }
+
             ///////////// 
             if (settings.Top != null && settings.Skip != null)
             {
@@ -298,12 +304,6 @@ namespace RevStackCore.Extensions.DynamicLinq
             {
                 top = Convert.ToInt32(settings.Top);
                 query = query.Take(top);
-            }
-
-            ////////////// ORDERING /////////////////////////////////////////
-            if (!string.IsNullOrEmpty(settings.OrderBy))
-            {
-                query = query.OrderBy(settings.OrderBy);
             }
 
             queryCount.Items = query;
