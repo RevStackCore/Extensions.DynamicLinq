@@ -113,6 +113,15 @@ namespace MyApp.Controllers
 
     }
 }
+```
+
+### ApplyTo Overload Extension
+
+```cs
+// Filter an IQueryable using a string queryString
+IQueryable<TEntity> ApplyTo<TEntity>(this string queryString, IQueryable<TEntity> query)
+
+```
 
 ```
 

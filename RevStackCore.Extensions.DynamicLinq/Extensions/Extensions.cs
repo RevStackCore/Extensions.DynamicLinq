@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.WebUtilities;
 using RevStackCore.Serialization;
 
 namespace RevStackCore.Extensions.DynamicLinq
@@ -19,7 +20,7 @@ namespace RevStackCore.Extensions.DynamicLinq
         /// <typeparam name="TEntity">The 1st type parameter.</typeparam>
         public static IQueryable<TEntity> ApplyTo<TEntity>(this HttpRequest request, IQueryable<TEntity> query)
         {
-            var settings = getSettings(request);
+            var settings = getSettings(request.Query);
             var queryCount = getItems(query, settings);
             return queryCount.Items;
         }
@@ -36,9 +37,29 @@ namespace RevStackCore.Extensions.DynamicLinq
         {
             if (settings.Filter.Count() < 1)
             {
-                settings.Filter = getFilterOptions(request);
+                settings.Filter = getFilterOptions(request.Query);
             }
             //settings = checkSettings(request, settings);
+            var queryCount = getItems(query, settings);
+            return queryCount.Items;
+        }
+
+        /// <summary>
+        /// Applies to.
+        /// </summary>
+        /// <returns>Applies Dynamic Linq Filtering to an IQueryable using a string QueryString</returns>
+        /// <param name="src">Source.</param>
+        /// <param name="query">Query.</param>
+        /// <typeparam name="TEntity">The 1st type parameter.</typeparam>
+        public static IQueryable<TEntity> ApplyTo<TEntity>(this string src, IQueryable<TEntity> query)
+        {
+            if(string.IsNullOrEmpty(src))
+            {
+                return query;
+            }
+            var dictQueryString = QueryHelpers.ParseQuery(src);
+            var queryCollection = new Microsoft.AspNetCore.Http.Internal.QueryCollection(dictQueryString);
+            var settings = getSettings(queryCollection);
             var queryCount = getItems(query, settings);
             return queryCount.Items;
         }
@@ -53,7 +74,7 @@ namespace RevStackCore.Extensions.DynamicLinq
         public static QueryResult<TEntity> PageResult<TEntity>(this HttpRequest request, IQueryable<TEntity> query)
         {
             var result = new QueryResult<TEntity>();
-            var settings = getSettings(request);
+            var settings = getSettings(request.Query);
             var queryCount = getItems(query, settings);
             result.Items = queryCount.Items;
             result.Count = queryCount.Count;
@@ -71,7 +92,7 @@ namespace RevStackCore.Extensions.DynamicLinq
         public static QueryResult<TEntity> PageResult<TEntity>(this HttpRequest request, IQueryable<TEntity> query, Uri nextPageLink)
         {
             var result = new QueryResult<TEntity>();
-            var settings = getSettings(request);
+            var settings = getSettings(request.Query);
             var queryCount = getItems(query, settings);
             result.Items = queryCount.Items;
             result.Count = queryCount.Count;
@@ -93,7 +114,7 @@ namespace RevStackCore.Extensions.DynamicLinq
             //settings = checkSettings(request, settings);
             if (settings.Filter.Count() < 1)
             {
-                settings.Filter = getFilterOptions(request);
+                settings.Filter = getFilterOptions(request.Query);
             }
             var queryCount = getItems(query, settings);
             result.Items = queryCount.Items;
@@ -115,7 +136,7 @@ namespace RevStackCore.Extensions.DynamicLinq
             //settings = checkSettings(request, settings);
             if (settings.Filter.Count() < 1)
             {
-                settings.Filter = getFilterOptions(request);
+                settings.Filter = getFilterOptions(request.Query);
             }
             var queryCount = getItems(query, settings);
             result.Items = queryCount.Items;
@@ -129,10 +150,9 @@ namespace RevStackCore.Extensions.DynamicLinq
         /// </summary>
         /// <returns>The settings.</returns>
         /// <param name="request">Request.</param>
-        private static QuerySettings getSettings(HttpRequest request)
+        private static QuerySettings getSettings(IQueryCollection queryString)
         {
             var settings = new QuerySettings();
-            var queryString = request.Query;
             string strSkip = queryString["$skip"];
             string strTop = queryString["$top"];
             string whereClause = queryString["$where"];
@@ -161,7 +181,7 @@ namespace RevStackCore.Extensions.DynamicLinq
             }
             else
             {
-                filter = getFilterOptions(request).ToList();
+                filter = getFilterOptions(queryString).ToList();
             }
             if (!string.IsNullOrEmpty(strOrderBy))
             {
@@ -204,10 +224,9 @@ namespace RevStackCore.Extensions.DynamicLinq
         /// </summary>
         /// <returns>The filter options.</returns>
         /// <param name="request">Request.</param>
-        private static IEnumerable<QueryFilterOptions> getFilterOptions(HttpRequest request)
+        private static IEnumerable<QueryFilterOptions> getFilterOptions(IQueryCollection queryString)
         {
             var options = new List<QueryFilterOptions>();
-            var queryString = request.Query;
             string filter = queryString["$filter"];
             if (!string.IsNullOrEmpty(filter))
             {
