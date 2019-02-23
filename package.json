@@ -1,6 +1,6 @@
 {
   "name": "RevStackCore.Extensions.DynamicLinq",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": ".net core queryable Rest API using System.Linq.Dynamic",
 	"main": "RevStackCore.Extensions.DynamicLinq.sln",
   "scripts": {

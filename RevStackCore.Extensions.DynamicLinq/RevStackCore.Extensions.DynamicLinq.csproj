@@ -3,11 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>RevStackCore.Extensions.DynamicLinq</PackageId>
-    <PackageVersion>2.2.0</PackageVersion>
+    <PackageVersion>2.2.1</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>.net core queryable Rest API using System.Linq.Dynamic</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Net Standard 2.0 release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/RevStackCore/Extensions.DynamicLinq.git</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/RevStackCore/Extensions.DynamicLinq/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://s3.amazonaws.com/revstack/icons/revstackcore-64x64.png</PackageIconUrl>
     <Copyright>Copyright 2017</Copyright>
     <PackageTags>RevStackCore Query Rest API Linq Dynamic OData</PackageTags>
   </PropertyGroup>
