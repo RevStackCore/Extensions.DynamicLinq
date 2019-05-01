@@ -146,6 +146,16 @@ namespace RevStackCore.Extensions.DynamicLinq
         }
 
         /// <summary>
+        /// Tos the query settings.
+        /// </summary>
+        /// <returns>The query settings.</returns>
+        /// <param name="queryString">Query string.</param>
+        public static QuerySettings ToQuerySettings(IQueryCollection queryString)
+        {
+            return getSettings(queryString);
+        }
+
+        /// <summary>
         /// Gets the settings.
         /// </summary>
         /// <returns>The settings.</returns>
