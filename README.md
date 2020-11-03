@@ -60,6 +60,8 @@ the $params querystring is a pipe-delimited("|") string of param values for the 
 
 $params=value0|value1|...valueN
 
+Ex: $where=Name==@0%26%26Email==@1&$params=Bob|bob123@gmail.com
+
 # Usage
 
 
