@@ -195,7 +195,7 @@ namespace RevStackCore.Extensions.DynamicLinq
             }
             if (!string.IsNullOrEmpty(strOrderBy))
             {
-                whereClause = null;
+                //whereClause = null;
                 strOrderBy = WebUtility.UrlDecode(strOrderBy);
                 string[] order = strOrderBy.Split(' ');
                 if (order.Count() == 2)
