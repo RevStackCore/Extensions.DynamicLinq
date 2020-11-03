@@ -18,3 +18,4 @@ Mono/
 packages/
 nuget.exe
 restore.dg
+.DS_Store
