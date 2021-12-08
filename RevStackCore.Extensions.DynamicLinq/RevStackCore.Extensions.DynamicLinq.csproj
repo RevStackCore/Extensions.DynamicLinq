@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>RevStackCore.Extensions.DynamicLinq</PackageId>
-    <PackageVersion>2.2.6</PackageVersion>
+    <PackageVersion>2.3.0</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>.net core queryable Rest API using System.Linq.Dynamic</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -25,5 +25,9 @@
     <Folder Include="Entity\" />
     <Folder Include="Enum\" />
     <Folder Include="Extensions\" />
+    <Folder Include="QueryCollection\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="QueryCollection\" />
   </ItemGroup>
 </Project>

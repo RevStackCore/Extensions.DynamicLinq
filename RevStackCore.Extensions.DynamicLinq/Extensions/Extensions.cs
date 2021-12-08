@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using RevStackCore.Serialization;
 
+
 namespace RevStackCore.Extensions.DynamicLinq
 {
+   
     public static class Extensions
     {
         /// <summary>
@@ -58,7 +60,7 @@ namespace RevStackCore.Extensions.DynamicLinq
                 return query;
             }
             var dictQueryString = QueryHelpers.ParseQuery(src);
-            var queryCollection = new Microsoft.AspNetCore.Http.Internal.QueryCollection(dictQueryString);
+            var queryCollection = new QueryCollection(dictQueryString);
             var settings = getSettings(queryCollection);
             var queryCount = getItems(query, settings);
             return queryCount.Items;
